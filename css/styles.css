@@ -126,41 +126,38 @@
       font-size: 30px; }
       .footer .footer__social-media .footer__social-mediaIcon:hover {
         color: white; }
-
-.footer__copyright {
-  margin-top: 20px;
-  color: rgba(255, 255, 255, 0.712);
-  transition: all .5s; }
-
-.footer__copyright:hover {
-  color: white;
-  cursor: pointer; }
+  .footer .footer__copyright {
+    margin-top: 20px;
+    color: rgba(255, 255, 255, 0.712);
+    transition: all .5s; }
+    .footer .footer__copyright:hover {
+      color: white;
+      cursor: pointer; }
 
 /* FORMULARIO DE COMPRA */
 .formulario-container {
   width: 60%; }
-
-.formularioCompra {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-  border: 2px solid white;
-  border-radius: 6px;
-  background-color: rgba(165, 157, 143, 0.733); }
-  .formularioCompra .input {
-    width: 80%;
-    padding: 10px;
+  .formulario-container .formularioCompra {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    border: 2px solid white;
     border-radius: 6px;
-    border: 2px solid rgba(0, 0, 0, 0.877);
-    transition: all .5s; }
-    .formularioCompra .input:hover {
-      background-color: rgba(0, 0, 0, 0.726);
-      border-color: white;
-      color: white; }
-  .formularioCompra .input-submit {
-    width: 40%;
-    font-weight: bold; }
-    .formularioCompra .input-submit:hover {
-      color: white; }
+    background-color: rgba(165, 157, 143, 0.733); }
+    .formulario-container .formularioCompra .input {
+      width: 80%;
+      padding: 10px;
+      border-radius: 6px;
+      border: 2px solid rgba(0, 0, 0, 0.877);
+      transition: all .5s; }
+      .formulario-container .formularioCompra .input:hover {
+        background-color: rgba(0, 0, 0, 0.726);
+        border-color: white;
+        color: white; }
+    .formulario-container .formularioCompra .input-submit {
+      width: 40%;
+      font-weight: bold; }
+      .formulario-container .formularioCompra .input-submit:hover {
+        color: white; }

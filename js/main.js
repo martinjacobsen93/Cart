@@ -116,7 +116,7 @@ function showItems() {                      // EVENTO QUE AL DAR CLICK EN EL BOT
             itemContainer.classList.add("cart-item", `cart-item${index}`, "m-2");
             let itemSubtotal = (product.precio * product.cantidad)
             itemContainer.innerHTML = `<p class="text-light text-center item-text">Producto: ${product.nombre}<p>
-                                           <p class="text-light text-center item-text">Precio $${product.precio}</p>
+                                           <p class="text-light text-center item-text">Precio: $${product.precio}</p>
                                            <p class="text-light text-center item-text">Cantidad: ${product.cantidad}</p>
                                            <p class="text-light text-center item-text">Subtotal: $${itemSubtotal}</p>
                                            <button class="btn btn-danger" onclick='removeItem(${index})'>Eliminar</button>`
@@ -147,11 +147,16 @@ function finalizarCompra() {
                                         <option>Bitcoin</option>
                                         <option>Transferencia bancaria</option>
                                     </select>
-                                    <input name='Submit' value="Enviar" type="submit" class="input input-submit">
+                                    <input name='Submit' value="Enviar" type="submit" class="input input-submit" onclick="test(event)">
                                 </form>
                               </div>`);
     });
 }
+
+// function test(event) {     // En la linea 150 intento sacar el target del evento cuando se le da click al input. Pero no me lo toma.
+//     console.log(event);
+//     alert(222)
+// }
 
 // $("#formularioCompra").submit(()=> {              Con este evento quiero conseguir el target, y a partir del mismo poder obtener los datos del usuario y utilizar el preventDefault.
 //     alert("hola")                                 Una vez tomados los datos, finalizar la compra y vaciar el carrito y resetear los contadores.
