@@ -104,8 +104,6 @@ function addItemToCart(productIndex) {              // Este evento es llamado al
     }
 }
 
-// let totalPriceToPay = 0;
-
 const carritoContainer = document.getElementById("carrito")
 
 function showItems() {                      // EVENTO QUE AL DAR CLICK EN EL BOTON "Sumar a Carrito" CREA UN NUEVO ELEMENTO CON LOS DETALLES DEL PRODUCTO SELECCIONADO Y LO MUESTRA EN PANTALLA. 
@@ -122,20 +120,54 @@ function showItems() {                      // EVENTO QUE AL DAR CLICK EN EL BOT
                                            <p class="text-light text-center item-text">Cantidad: ${product.cantidad}</p>
                                            <p class="text-light text-center item-text">Subtotal: $${itemSubtotal}</p>
                                            <button class="btn btn-danger" onclick='removeItem(${index})'>Eliminar</button>`
-            // totalPriceToPay = totalPriceToPay + itemSubtotal;
             $("#carrito").append(itemContainer);
         });
-        $(".carrito").append("<h3 class='text-light fs-4 mt-3'>Desea finalizar su compra?</h3>")
-        $(".carrito").append("<button class='finalizarCompra btn text-center' onclick='finalizarCompra()'>Finalizar Compra</button>")
-        $(".finalizarCompra").css("width", "200px")
-        $("#carrito").addClass("d-flex flex-column align-items-center")
+        $(".carrito").append("<h3 class='text-light fs-4 mt-3'>Desea finalizar su compra?</h3>");
+        $(".carrito").append("<button class='finalizarCompra btn text-center' onclick='finalizarCompra()'>Finalizar Compra</button>");
+        $(".carrito").addClass("d-flex flex-column align-items-center");
+        $(".finalizarCompra").css("width", "400px");
     }
 }
 
 function finalizarCompra() {
-    alert(`Tu compra por un monto de: $${montoHastaAhora} ha sido aprobada y realizada con éxito`);
-    emptyCart()
+    alert(`Tu compra por un monto de: $${montoHastaAhora} ha sido cargada. Para finalizar la misma, por favor complete el siguiente formulario con los datos solicitados.`);
+    
+    $(".finalizarCompra").fadeOut(1500) // AGREGO UN FADEOUT PARA QUE EL CAMBIO NO SEA TAN BRUSCO, Y LUEGO APAREZCA EL FORMULARIO
+    .delay(4000, ()=> {
+        $("#carrito").html(""); // VACÍO EL INNERHTML DEL CARRITO, CREO UN CONTAINER Y DENTRO UN FORMULARIO CON LOS CORRESPONDIENTES INPUT.
+        $("#carrito").append(`<div class="formulario-container">
+                                <h2 class="text-light text-center p-2">Datos para el envío de su pedido</h2>
+                                <form class="formularioCompra border-light border-2 p-3 d-flex flex-column" id="formularioCompra">
+                                    <input name='Nombre' placeholder="Ingrese su nombre" type="text" class="input" required>
+                                    <input name='Apellido' placeholder="Ingrese su apellido" type="text" class="input" required>
+                                    <input name='Dirección' placeholder="Ingrese la dirección de envío" type="text" class="input" required>
+                                    <input name='E-mail' placeholder="Ingrese su correo electrónico" type="email" class="input" required>
+                                    <select name="select" class="p-2">
+                                        <option selected disabled>Método de pago</option>
+                                        <option>Bitcoin</option>
+                                        <option>Transferencia bancaria</option>
+                                    </select>
+                                    <input name='Submit' value="Enviar" type="submit" class="input input-submit">
+                                </form>
+                              </div>`);
+    });
 }
+
+// $("#formularioCompra").submit(()=> {              Con este evento quiero conseguir el target, y a partir del mismo poder obtener los datos del usuario y utilizar el preventDefault.
+//     alert("hola")                                 Una vez tomados los datos, finalizar la compra y vaciar el carrito y resetear los contadores.
+// })                                                Pero no me está saliendo conseguir el target con jQuery, ni con el onclick ni con un addEventListener. :/
+
+// formulario.addEventListener(submit, (e)=> {
+//     e.preventDefault();
+//     console.log(e.target)
+//     let formTarget = e.target;
+//     const name = formTarget[0].value;
+//     const lastName = formTarget[1].value;
+//     const address = formTarget[2].value;
+//     const email = formTarget[3].value;
+
+//     emptyCart()
+// });
 
 function emptyCart() {  // LLAMADA EN LA FUNCIÓN DE ARRIBA "finalizarCompra", ES USADA COMO EVENTO AL APRETAR "FINALIZAR COMPRA", 
                         // EL CARRITO SE VACÍA Y LOS CONTADORES DE CANTIDAD Y MONTO SE SETEAN EN 0 DE NUEVO.
@@ -163,7 +195,6 @@ function removeItem(productIndex) {                                         // R
         $("#carrito").html("");
         $("#carrito").removeClass("carrito");
     }
-
 }
 
 // AJAX
@@ -172,7 +203,6 @@ const URL = 'https://api.coinbase.com/v2/prices/BTC-USD/buy';   // REQUEST DE PR
 
 $.get(URL, (response, status) => { // TRAIGO DESDE LA API DE COINBASE EL PRECIO DE BITCOIN
     if (status === "success") {
-        console.log(response)
         const { data: {amount: precio }} = response;
         $(".cripto").append(`<h3 class="text-light text-center bitcoin-title">Aceptamos Bitcoin como método de pago a través del mercado P2P</h3>
                               <p class="fs-4 text-center bitcoin-price">Precio actual de Bitcoin: <span class="btc-price">USD ${precio}</span></p>`);

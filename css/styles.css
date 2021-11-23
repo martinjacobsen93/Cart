@@ -1,165 +1,166 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; }
 
 .main__container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.main__title {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+  .main__container .main__title {
     text-align: center;
-    text-decoration: underline;
-}
+    text-decoration: underline; }
 
 .card {
-    width: 400px;
-    margin: 5px;
-    border: 2px solid white;
-}
+  width: 400px;
+  margin: 5px;
+  border: 2px solid white; }
 
 /* ITEM YA AGREGADO EN CARRITO*/
-
 .carrito {
-    width: 90%;
-    background: rgba(141, 79, 79, 0.747);
-    display: flex;
-    flex-direction: column;
-    margin: auto;
-    border-radius: 5px;
-    padding: 20px;
-    border: 1px solid white;
-    margin-bottom: 70px;
-}
+  width: 90%;
+  background: rgba(141, 79, 79, 0.747);
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  border-radius: 5px;
+  padding: 20px;
+  border: 1px solid white;
+  margin-bottom: 70px; }
 
 .cart-item {
-    display: flex;
-    /* justify-content: center; */
-    background: rgba(53, 49, 49, 0.747);
-    width: 85%;
-    padding: 25px;
-    border: 2px solid white;
-    border-radius: 5px;
-    align-self: center;
-}
+  display: flex;
+  background: rgba(53, 49, 49, 0.747);
+  width: 85%;
+  padding: 25px;
+  border: 2px solid white;
+  border-radius: 5px;
+  align-self: center; }
 
 .item-text {
-    text-align: center;
-    width: 20%;
-    margin: auto 0;
-}
+  text-align: center;
+  width: 20%;
+  margin: auto 0; }
 
 .finalizarCompra {
-    /* mt-3 border-light; */
-    margin-top: 10px;
-    border: 2px solid black;
-    background-color: rgba(255, 255, 255, 0.904);
-    font-weight: bold;
-    transition: all .5s;
-}
+  margin-top: 10px;
+  border: 2px solid black;
+  background-color: rgba(255, 255, 255, 0.904);
+  font-weight: bold;
+  transition: all .5s; }
 
 .finalizarCompra:hover {
-    border-color: white;
-    color: white;
-    background-color: rgba(0, 0, 0, 0.678);
-}
+  border-color: white;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.678); }
 
 /* CRIPTO CONTAINER */
-
 .cripto {
-    margin: 50px 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+  margin: 50px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
 
 .bitcoin-title {
-    border: 1px solid white;
-    background-color: black;
-    width: 80%;
-    border-radius: 6px;
-    text-align: center;
-    padding: 10px;
-}
+  border: 1px solid white;
+  background-color: black;
+  width: 80%;
+  border-radius: 6px;
+  text-align: center;
+  padding: 10px; }
 
 .bitcoin-price {
-    border: 2px solid white;
-    padding: 10px;
-    border-radius: 6px;
-    background-color: black;
-    color: white;
-}
+  border: 2px solid white;
+  padding: 10px;
+  border-radius: 6px;
+  background-color: black;
+  color: white; }
 
 .btc-price {
-    color: yellow;
-    transition: all .4s;
-    animation-name: animacion-btc;
-    animation-duration: 4s;
-    animation-delay: 2s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-}
+  color: yellow;
+  transition: all .4s;
+  animation-name: animacion-btc;
+  animation-duration: 4s;
+  animation-delay: 2s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite; }
+  .btc-price:hover {
+    font-size: 24px;
+    cursor: pointer; }
 
 @keyframes animacion-btc {
-    0% {color: yellow;}
-    25% {color: orange;}
-    50% {color: rgb(202, 25, 25);}
-    75% {color: orange;}
-    100% {color: yellow;}
-}
-
-.btc-price:hover {
-    font-size: 24px;
-    cursor: pointer;
-}
+  0% {
+    color: yellow; }
+  25% {
+    color: orange; }
+  50% {
+    color: #ca1919; }
+  75% {
+    color: orange; }
+  100% {
+    color: yellow; } }
 
 #montoTotalAPagar, #cantidadProductos {
-    border: 2px solid white;
-    border-radius: 6px;
-    background-color: rgba(10, 6, 6, 0.603);
-    padding: 8px;
-}
+  border: 2px solid white;
+  border-radius: 6px;
+  background-color: rgba(10, 6, 6, 0.603);
+  padding: 8px; }
 
 /* FOOTER */
-
 .footer {
-    /* height: 120px; */
-    border-top: 2px solid white;
-    margin-top: 50px;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-}
-
-.footer__social-media {
+  border-top: 2px solid white;
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px; }
+  .footer .footer__social-media {
     margin-top: 15px;
     width: 45%;
     display: flex;
-    justify-content: space-evenly;
-}
-
-.footer__social-mediaIcon {
-    color: rgb(155, 152, 152);
-    transition: all .5s;
-    font-size: 30px;
-}
-
-.footer__social-mediaIcon:hover {
-    color: rgb(255, 255, 255);
-}
+    justify-content: space-evenly; }
+    .footer .footer__social-media .footer__social-mediaIcon {
+      color: #9b9898;
+      transition: all .5s;
+      font-size: 30px; }
+      .footer .footer__social-media .footer__social-mediaIcon:hover {
+        color: white; }
 
 .footer__copyright {
-    margin-top: 20px;
-    color: rgba(255, 255, 255, 0.712);
-    transition: all .5s;
-}
+  margin-top: 20px;
+  color: rgba(255, 255, 255, 0.712);
+  transition: all .5s; }
 
 .footer__copyright:hover {
-    color: white;
-    cursor: pointer;
-}
+  color: white;
+  cursor: pointer; }
+
+/* FORMULARIO DE COMPRA */
+.formulario-container {
+  width: 60%; }
+
+.formularioCompra {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  border: 2px solid white;
+  border-radius: 6px;
+  background-color: rgba(165, 157, 143, 0.733); }
+  .formularioCompra .input {
+    width: 80%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 2px solid rgba(0, 0, 0, 0.877);
+    transition: all .5s; }
+    .formularioCompra .input:hover {
+      background-color: rgba(0, 0, 0, 0.726);
+      border-color: white;
+      color: white; }
+  .formularioCompra .input-submit {
+    width: 40%;
+    font-weight: bold; }
+    .formularioCompra .input-submit:hover {
+      color: white; }
