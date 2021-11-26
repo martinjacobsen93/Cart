@@ -50,12 +50,13 @@
     margin: auto 0;
 }
 
-.finalizarCompra {
+.finalizarCompra, .cancelarCompra {
     margin-top: 10px;
     border: 2px solid black;
     background-color: rgba(255, 255, 255, 0.904);
     font-weight: bold;
     transition: all .5s;
+    width: 400px;
     &:hover {
         border-color: white;
         color: white;
@@ -63,10 +64,27 @@
     }
 }
 
+.cancelarCompra {
+    background-color: rgba(187, 37, 37, 0.788);
+    color: white;
+}
+
+.btn-volverAtras {
+    border: 2px solid black;
+    font-weight: bold;
+    background-color: rgba(187, 37, 37, 0.788);
+    color: white;
+    transition: all .5s;
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.877);
+        color: black;
+    }
+}
+
 /* CRIPTO CONTAINER */
 
 .cripto {
-    margin: 50px 0;
+    margin: 30px 0;
     display: flex;
     flex-direction: column;
     align-items: center;
