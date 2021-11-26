@@ -222,7 +222,7 @@ $.get(URL, (response, status) => { // TRAIGO DESDE LA API DE COINBASE EL PRECIO 
     }
 });
 
-// const URL2 = "js/products.json";
+ const URL2 = "js/products.json";
 
 // async function obtenerDatos() {
 //     const response = await fetch(URL2);
@@ -233,11 +233,10 @@ $.get(URL, (response, status) => { // TRAIGO DESDE LA API DE COINBASE EL PRECIO 
 
 // obtenerDatos()
 
-// const obtener = ()=> {
-//     fetch('js/products.json')
-//     .then(res => res.text())
-//     .then(data =>
-//         console.log(JSON.parse(data)))
-// }
-
-// const videoGames = obtener();
+// fetch(URL2).
+// then(response => response.json())
+// .then(productos => {
+//     for (producto of productos) {
+//         $("#carrito").prepend(`<h1 class="text-light fs-3 text-center">${producto.nombre}</h1>`)
+//     }
+// })
