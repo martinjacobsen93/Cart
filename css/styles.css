@@ -19,7 +19,7 @@
 /* ITEM YA AGREGADO EN CARRITO*/
 .carrito {
   width: 90%;
-  background: rgba(141, 79, 79, 0.747);
+  background: rgba(71, 32, 32, 0.87);
   display: flex;
   flex-direction: column;
   margin: auto;
@@ -172,3 +172,26 @@
       font-weight: bold; }
       .formulario-container .formularioCompra .input-submit:hover {
         color: white; }
+
+.procesando-compra {
+  color: yellow;
+  animation-name: animacion-compra;
+  animation-duration: 0.7s;
+  animation-delay: 0;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite; }
+
+@keyframes animacion-compra {
+  0% {
+    color: yellow; }
+  25% {
+    color: orange; }
+  50% {
+    color: #ca1919; }
+  75% {
+    color: orange; }
+  100% {
+    color: yellow; } }
+
+.direccionEnvio {
+  color: rgba(255, 238, 0, 0.938); }

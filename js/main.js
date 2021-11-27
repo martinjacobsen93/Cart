@@ -107,7 +107,7 @@ function addItemToCart(productIndex) { // Este evento es llamado al dar click en
 const carritoContainer = document.getElementById("carrito")
 
 function showItems() { // evento que al dar click en el boton "sumar a carrito", crea un nuevo elemento de tipo contenedor con los detalles del producto seleccionado y lo muestra en pantalla
-     
+
     carritoContainer.className = "carrito";
     carritoContainer.innerHTML = "";
     totalPriceToPay = 0;
@@ -156,17 +156,24 @@ function finalizarCompra() {
 
     $("#formularioCompra").on("submit", function (e) {
         e.preventDefault();
-        $(".formulario-container").fadeOut(250, ()=> {
-            $("#carrito").append(`<h2 class="text-light">Muchas gracias por tu compra ${$("#nombreInput").val()} ${$("#apellidoInput").val()}</h2>
-                                  <p class="text-light fs-3">Tu pedido por un monto de $${montoHastaAhora} será despachado con destino: <span class="text-dark">${$("#direccionInput").val()}</span> dentro de las próximas 72hs hábiles</p>
-                                  <button class="btn btn-danger btn-finalizarResumen" onclick='endPurchaseView()'>Finalizar revisión</button>`);
-            $(".formulario-container").hide();
+        $(".formulario-container").fadeOut(300, () => {
+            $("#carrito").append(`<h2 class="fs-2 procesando-compra">Procesando tu compra...</h2>`)
+                .delay(2000)
+            $("#carrito").fadeOut(1000, () => {
+                $(".procesando-compra").remove()
+                $(".formulario-container").hide();
+                $("#carrito").show()
+                $("#carrito").append(`<h2 class="text-light">Muchas gracias por tu compra ${$("#nombreInput").val()} ${$("#apellidoInput").val()}</h2>
+                                      <p class="text-light fs-3 text-center">Tu pedido se ha realizado con éxito y será despachado con destino: <span class="direccionEnvio">${$("#direccionInput").val()}</span> dentro de las próximas 72hs hábiles</p>
+                                      <button class="btn btn-danger btn-finalizarResumen" onclick='endPurchaseView()'>Finalizar revisión</button>`);
+                $(".formulario-container").remove();
+            })
         });
     });
 }
 
 function volverAtras() {
-    $(".formulario-container").fadeOut(100, ()=> {
+    $(".formulario-container").fadeOut(100, () => {
         $("#carrito").html("");
         showItems()
     });
