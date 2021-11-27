@@ -2,7 +2,7 @@ const videoGames = [{ // array de objetos que serán parte de cards.
         nombre: "Nintendo Switch",
         id: 1,
         fabricante: "Nintendo",
-        img: "../img/nintendo2.jpg",
+        img: "./img/nintendo2.jpg",
         precio: 70000
     },
 
@@ -10,7 +10,7 @@ const videoGames = [{ // array de objetos que serán parte de cards.
         nombre: "Nintendo Switch Limited Edition",
         id: 2,
         fabricante: "Nintendo",
-        img: "../img/nintendo1.jpg",
+        img: "./img/nintendo1.jpg",
         precio: 80000
     },
 
@@ -18,7 +18,7 @@ const videoGames = [{ // array de objetos que serán parte de cards.
         nombre: "Mario Kart Deluxe",
         id: 3,
         fabricante: "Nintendo",
-        img: "../img/mariokart.jpg",
+        img: "./img/mariokart.jpg",
         precio: 10000
     },
 
@@ -26,35 +26,35 @@ const videoGames = [{ // array de objetos que serán parte de cards.
         nombre: "Playstation 5",
         id: 4,
         fabricante: "Sony",
-        img: "../img/ps5-negra.jpg",
+        img: "./img/ps5-negra.jpg",
         precio: 200000
     },
     {
         nombre: "PS5 Eternal Blue Controller",
         id: 5,
         fabricante: "Sony",
-        img: "../img/ps-controller1.jpg",
+        img: "./img/ps-controller1.jpg",
         precio: 20000
     },
     {
         nombre: "PS5 Eternal Red Controller",
         id: 6,
         fabricante: "Sony",
-        img: "../img/ps-controller2.jpg",
+        img: "./img/ps-controller2.jpg",
         precio: 22000
     },
     {
         nombre: "X-Box X Series",
         id: 7,
         fabricante: "Microsoft",
-        img: "../img/xbox3.jpg",
+        img: "./img/xbox3.jpg",
         precio: 250000
     },
     {
         nombre: "Tarjeta Gráfica RTX 3090",
         id: 8,
         fabricante: "Nvidia",
-        img: "../img/rtx3090.jpg",
+        img: "./img/rtx3090.jpg",
         precio: 350000
     }
 ];
