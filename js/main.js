@@ -135,8 +135,6 @@ function cancelarCompra() { // se llama en la linea 128.
 }
 
 function finalizarCompra() {
-    alert(`Tu compra por un monto de: $${montoHastaAhora} ha sido cargada. Para finalizar la misma, por favor complete el siguiente formulario con los datos solicitados.`);
-
     $(".finalizarCompra").hide();
     $("#carrito").html(""); // VACÍO EL INNERHTML DEL CARRITO, CREO UN CONTAINER Y DENTRO UN FORMULARIO CON LOS CORRESPONDIENTES INPUT.
     $("#carrito").append(`<div class="formulario-container">
@@ -169,6 +167,7 @@ function finalizarCompra() {
 
 function volverAtras() {
     $(".formulario-container").fadeOut(100, ()=> {
+        $("#carrito").html("");
         showItems()
     });
 }
@@ -221,22 +220,3 @@ $.get(URL, (response, status) => { // TRAIGO DESDE LA API DE COINBASE EL PRECIO 
                               <p class="fs-4 text-center bitcoin-price">Precio actual de Bitcoin: <span class="btc-price">USD ${precio}</span></p>`);
     }
 });
-
- const URL2 = "js/products.json";
-
-// async function obtenerDatos() {
-//     const response = await fetch(URL2);
-//     const json = await response.text();
-
-//     console.log(JSON.parse(json))
-// }
-
-// obtenerDatos()
-
-// fetch(URL2).
-// then(response => response.json())
-// .then(productos => {
-//     for (producto of productos) {
-//         $("#carrito").prepend(`<h1 class="text-light fs-3 text-center">${producto.nombre}</h1>`)
-//     }
-// })
