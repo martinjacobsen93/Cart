@@ -144,10 +144,10 @@ function finalizarCompra() {
                                     <input name='apellido' placeholder="Ingrese su apellido" type="text" class="input" required id="apellidoInput">
                                     <input name='dirección' placeholder="Ingrese la dirección de envío" type="text" class="input" required id="direccionInput">
                                     <input name='email' placeholder="Ingrese su correo electrónico" type="email" class="input" required id="emailInput">
-                                    <select name="select" class="p-2">
-                                        <option selected disabled>Método de pago</option>
-                                        <option>Bitcoin</option>
-                                        <option>Transferencia bancaria</option>
+                                    <select name="select" class="p-2" required>
+                                        <option value="">Método de pago</option>
+                                        <option value="bitcoin">Bitcoin</option>
+                                        <option value="transfer">Transferencia bancaria</option>
                                     </select>
                                     <input name='Submit' value="Enviar" type="submit" class="input input-submit">
                                     <button class="btn btn-volverAtras" onclick='volverAtras()'>Volver atrás</button>
