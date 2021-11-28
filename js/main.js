@@ -60,7 +60,13 @@ const videoGames = [{ // array de objetos que serán parte de cards.
 ];
 
 $(document).ready(() => {
+    showAvailableProducts()
+    $(".compras").append(`<h2 id="cantidadProductos" class="text-light m-3">Productos en carrito: ${cantidadDeProductos}</h2>`);
+    $(".compras").append(`<h2 id="montoTotalAPagar" class="text-light m-3">Monto a pagar: $${montoHastaAhora}</h2>`);
 
+});
+
+function showAvailableProducts() {
     videoGames.forEach((videoGame, index) => {
         const cardContainer = document.createElement("div");
         cardContainer.classList.add("card")
@@ -73,12 +79,7 @@ $(document).ready(() => {
                                    </div>`
         $(".productos").append(cardContainer)
     });
-
-    $(".compras").append(`<h2 id="cantidadProductos" class="text-light m-3">Productos en carrito: ${cantidadDeProductos}</h2>`);
-    $(".compras").append(`<h2 id="montoTotalAPagar" class="text-light m-3">Monto a pagar: $${montoHastaAhora}</h2>`);
-
-});
-
+}
 let cantidadDeProductos = 0;
 let montoHastaAhora = 0;
 let cart = [];
@@ -137,6 +138,7 @@ function cancelarCompra() { // se llama en la linea 128.
 function finalizarCompra() {
     $(".finalizarCompra").hide();
     $("#carrito").html(""); // VACÍO EL INNERHTML DEL CARRITO, CREO UN CONTAINER Y DENTRO UN FORMULARIO CON LOS CORRESPONDIENTES INPUT.
+    $("#productos").html("");
     $("#carrito").append(`<div class="formulario-container">
                                 <h2 class="text-light text-center p-2">Datos para el envío de su pedido</h2>
                                 <form class="formularioCompra border-light border-2 p-3 d-flex flex-column" id="formularioCompra">
@@ -145,7 +147,7 @@ function finalizarCompra() {
                                     <input name='dirección' placeholder="Ingrese la dirección de envío" type="text" class="input" required id="direccionInput">
                                     <input name='email' placeholder="Ingrese su correo electrónico" type="email" class="input" required id="emailInput">
                                     <select name="select" class="p-2" required>
-                                        <option value="">Método de pago</option>
+                                        <option value="" disabled selected>Método de pago</option>
                                         <option value="bitcoin">Bitcoin</option>
                                         <option value="transfer">Transferencia bancaria</option>
                                     </select>
@@ -174,12 +176,14 @@ function finalizarCompra() {
 
 function volverAtras() {
     $(".formulario-container").fadeOut(100, () => {
+        test1()
         $("#carrito").html("");
         showItems()
     });
 }
 
 function endPurchaseView() {
+    showAvailableProducts();
     emptyCart();
     $(".formulario-container").remove();
 }
