@@ -59,11 +59,31 @@ const videoGames = [{ // array de objetos que serán parte de cards.
     }
 ];
 
+let cantidadDeProductos = 0;
+let montoHastaAhora = 0;
+let cart = [];
+
 $(document).ready(() => {
     showAvailableProducts()
     $(".compras").append(`<h2 id="cantidadProductos" class="text-light m-3">Productos en carrito: ${cantidadDeProductos}</h2>`);
     $(".compras").append(`<h2 id="montoTotalAPagar" class="text-light m-3">Monto a pagar: $${montoHastaAhora}</h2>`);
 
+});
+
+// AJAX
+
+const URL = 'https://api.coinbase.com/v2/prices/BTC-USD/buy'; // REQUEST DE PRECIO DE BTC A USD DE API COINBASE.
+
+$.get(URL, (response, status) => { // TRAIGO DESDE LA API DE COINBASE EL PRECIO DE BITCOIN
+    if (status === "success") {
+        const {
+            data: {
+                amount: precio
+            }
+        } = response;
+        $(".cripto").append(`<h3 class="text-light text-center bitcoin-title">Aceptamos Bitcoin como método de pago a través del mercado P2P</h3>
+                              <p class="fs-4 text-center bitcoin-price">Precio actual de Bitcoin: <span class="btc-price">USD ${precio}</span></p>`);
+    }
 });
 
 function showAvailableProducts() {
@@ -80,9 +100,6 @@ function showAvailableProducts() {
         $(".productos").append(cardContainer)
     });
 }
-let cantidadDeProductos = 0;
-let montoHastaAhora = 0;
-let cart = [];
 
 function buyItem(productIndex) {
     cantidadDeProductos++
@@ -105,12 +122,12 @@ function addItemToCart(productIndex) { // Este evento es llamado al dar click en
     }
 }
 
-const carritoContainer = document.getElementById("carrito")
+// const carritoContainer = document.getElementById("carrito")
 
 function showItems() { // evento que al dar click en el boton "sumar a carrito", crea un nuevo elemento de tipo contenedor con los detalles del producto seleccionado y lo muestra en pantalla
 
-    carritoContainer.className = "carrito";
-    carritoContainer.innerHTML = "";
+    $("#carrito").addClass("carrito")
+    $(".carrito").html("")
     totalPriceToPay = 0;
     if (cart.length > 0) {
         cart.forEach((product, index) => {
@@ -163,12 +180,15 @@ function finalizarCompra() {
                 .delay(2000)
             $("#carrito").fadeOut(1000, () => {
                 $(".procesando-compra").remove()
+                $("#montoTotalAPagar").hide();
+                $("#cantidadProductos").hide();
                 $(".formulario-container").hide();
                 $("#carrito").show()
                 $("#carrito").append(`<h2 class="text-light">Muchas gracias por tu compra ${$("#nombreInput").val()} ${$("#apellidoInput").val()}</h2>
                                       <p class="text-light fs-3 text-center">Tu pedido se ha realizado con éxito y será despachado con destino: <span class="direccionEnvio">${$("#direccionInput").val()}</span> dentro de las próximas 72hs hábiles</p>
-                                      <button class="btn btn-danger btn-finalizarResumen" onclick='endPurchaseView()'>Finalizar revisión</button>`);
+                                    `);
                 $(".formulario-container").remove();
+                verResumenDeCompra()
             })
         });
     });
@@ -176,16 +196,19 @@ function finalizarCompra() {
 
 function volverAtras() {
     $(".formulario-container").fadeOut(100, () => {
-        test1()
         $("#carrito").html("");
+        showAvailableProducts();
         showItems()
     });
 }
 
 function endPurchaseView() {
+    $("#montoTotalAPagar").show();
+    $("#cantidadProductos").show();
     showAvailableProducts();
     emptyCart();
     $(".formulario-container").remove();
+    $(".resume-container").remove();
 }
 
 function emptyCart() { // LLAMADA EN LA FUNCIÓN DE ARRIBA "finalizarCompra", ES USADA COMO EVENTO AL APRETAR "FINALIZAR COMPRA", 
@@ -216,18 +239,20 @@ function removeItem(productIndex) { // REMUEVO EL PRODUCTO SELECCIONADO, Y CON E
     }
 }
 
-// AJAX
-
-const URL = 'https://api.coinbase.com/v2/prices/BTC-USD/buy'; // REQUEST DE PRECIO DE BTC A USD DE API COINBASE.
-
-$.get(URL, (response, status) => { // TRAIGO DESDE LA API DE COINBASE EL PRECIO DE BITCOIN
-    if (status === "success") {
-        const {
-            data: {
-                amount: precio
-            }
-        } = response;
-        $(".cripto").append(`<h3 class="text-light text-center bitcoin-title">Aceptamos Bitcoin como método de pago a través del mercado P2P</h3>
-                              <p class="fs-4 text-center bitcoin-price">Precio actual de Bitcoin: <span class="btc-price">USD ${precio}</span></p>`);
-    }
-});
+function verResumenDeCompra() { // Función que se llama en linea 191, dentro del evento submit del formulario de compra en linea 161. 
+    $("#carrito").after(`<div class="resume-container p-2">
+                         </div>
+                        `)
+    $(".resume-container").append("<h2 class='resume__title fs-2'>Resumen de compra</h2>")
+    cart.forEach(product => {
+        const itemContainer = document.createElement("div")
+        itemContainer.classList.add("resume__itemContainer")
+        itemContainer.innerHTML =`<p class="resume__itemDetail resume__itemName w-25">${product.nombre}</p>
+                                  <p class="resume__itemDetail resume__itemQuantity w-25">Cantidad: ${product.cantidad}</p>
+                                  <p class="resume__itemDetail resume__itemTotalPrice w-25">Subtotal: $${product.precio * product.cantidad}</p>
+                                 `
+        $(".resume-container").append(itemContainer);
+    })
+    $(".resume-container").append(`<h3 class="resume__total fs-2">Total: $${montoHastaAhora}</h3>
+                                   <button class="btn btn-danger btn-finalizarResumen" onclick='endPurchaseView()'>Finalizar revisión</button>`)
+}

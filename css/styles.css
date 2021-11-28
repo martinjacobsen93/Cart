@@ -26,7 +26,7 @@
   border-radius: 5px;
   padding: 20px;
   border: 1px solid white;
-  margin-bottom: 70px; }
+  margin-bottom: 38px; }
 
 .cart-item {
   display: flex;
@@ -195,3 +195,45 @@
 
 .direccionEnvio {
   color: rgba(255, 238, 0, 0.938); }
+
+.resume-container {
+  width: 50%;
+  margin: 20px auto;
+  border: 2px solid white;
+  background-color: rgba(131, 21, 21, 0.637);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  border-radius: 5px; }
+
+.resume__title {
+  color: white;
+  text-align: center; }
+
+.resume__itemContainer {
+  width: 85%;
+  border: 2px solid white;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  border: 2px solid white;
+  border-radius: 5px;
+  background-color: rgba(56, 25, 25, 0.637); }
+
+.resume__itemContainer p {
+  width: auto;
+  margin: auto; }
+
+.resume__itemDetail {
+  color: white;
+  font-size: 20px;
+  text-align: center; }
+
+.resume__total {
+  border: 2px solid white;
+  padding: 5px;
+  border-radius: 6px;
+  color: white;
+  margin-top: 20px;
+  background-color: rgba(209, 107, 24, 0.932); }
