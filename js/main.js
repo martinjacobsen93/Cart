@@ -65,8 +65,8 @@ let cart = [];
 
 $(document).ready(() => {
     showAvailableProducts()
-    $(".compras").append(`<h2 id="cantidadProductos" class="text-light m-3">Productos en carrito: ${cantidadDeProductos}</h2>`);
-    $(".compras").append(`<h2 id="montoTotalAPagar" class="text-light m-3">Monto a pagar: $${montoHastaAhora}</h2>`);
+    $(".compras").append(`<h2 id="cantidadProductos" class="text-light m-3 text-center">Productos en carrito: ${cantidadDeProductos}</h2>`);
+    $(".compras").append(`<h2 id="montoTotalAPagar" class="text-light m-3 text-center">Monto a pagar: $${montoHastaAhora}</h2>`);
 
 });
 
@@ -138,10 +138,10 @@ function showItems() { // evento que al dar click en el boton "sumar a carrito",
                                            <p class="text-light text-center item-text">Precio: $${product.precio}</p>
                                            <p class="text-light text-center item-text">Cantidad: ${product.cantidad}</p>
                                            <p class="text-light text-center item-text">Subtotal: $${itemSubtotal}</p>
-                                           <button class="btn btn-danger" onclick='removeItem(${index})'>Eliminar</button>`
+                                           <button class="btn btn-danger" onclick='eliminarProducto(${index})'>Eliminar</button>`
             $("#carrito").append(itemContainer);
         });
-        $(".carrito").append("<h3 class='text-light fs-4 mt-3'>Desea finalizar su compra?</h3>");
+        $(".carrito").append("<h3 class='text-light fs-4 mt-3 text-center'>Desea finalizar su compra?</h3>");
         $(".carrito").append("<button class='finalizarCompra btn text-center' onclick='finalizarCompra()'>Finalizar Compra</button>");
         $(".carrito").append("<button class='cancelarCompra btn text-center' onclick='cancelarCompra()'>Cancelar Compra</button>");
         $(".carrito").addClass("d-flex flex-column align-items-center");
@@ -149,7 +149,7 @@ function showItems() { // evento que al dar click en el boton "sumar a carrito",
 }
 
 function cancelarCompra() { // se llama en la linea 128.
-    emptyCart();
+    vaciarCarrito();
 }
 
 function finalizarCompra() {
@@ -157,7 +157,7 @@ function finalizarCompra() {
     $("#carrito").html(""); // VACÍO EL INNERHTML DEL CARRITO, CREO UN CONTAINER Y DENTRO UN FORMULARIO CON LOS CORRESPONDIENTES INPUT.
     $("#productos").html("");
     $("#carrito").append(`<div class="formulario-container">
-                                <h2 class="text-light text-center p-2">Datos para el envío de su pedido</h2>
+                                <h2 class="text-light text-center p-2 form-title">Datos para el envío de su pedido</h2>
                                 <form class="formularioCompra border-light border-2 p-3 d-flex flex-column" id="formularioCompra">
                                     <input name='nombre' placeholder="Ingrese su nombre" type="text" class="input" required id="nombreInput">
                                     <input name='apellido' placeholder="Ingrese su apellido" type="text" class="input" required id="apellidoInput">
@@ -176,6 +176,7 @@ function finalizarCompra() {
     $("#formularioCompra").on("submit", function (e) {
         e.preventDefault();
         $(".formulario-container").fadeOut(300, () => {
+            // $(".footer").hide()
             $("#carrito").append(`<h2 class="fs-2 procesando-compra">Procesando tu compra...</h2>`)
                 .delay(2000)
             $("#carrito").fadeOut(1000, () => {
@@ -184,9 +185,10 @@ function finalizarCompra() {
                 $("#cantidadProductos").hide();
                 $(".formulario-container").hide();
                 $("#carrito").show()
-                $("#carrito").append(`<h2 class="text-light">Muchas gracias por tu compra ${$("#nombreInput").val()} ${$("#apellidoInput").val()}</h2>
+                $("#carrito").append(`<h2 class="text-light text-center">Muchas gracias por tu compra ${$("#nombreInput").val()} ${$("#apellidoInput").val()}</h2>
                                       <p class="text-light fs-3 text-center">Tu pedido se ha realizado con éxito y será despachado con destino: <span class="direccionEnvio">${$("#direccionInput").val()}</span> dentro de las próximas 72hs hábiles</p>
                                     `);
+                // $(".footer").show()
                 $(".formulario-container").remove();
                 verResumenDeCompra()
             })
@@ -202,16 +204,16 @@ function volverAtras() {
     });
 }
 
-function endPurchaseView() {
+function finalizarRevision() {
     $("#montoTotalAPagar").show();
     $("#cantidadProductos").show();
     showAvailableProducts();
-    emptyCart();
+    vaciarCarrito();
     $(".formulario-container").remove();
     $(".resume-container").remove();
 }
 
-function emptyCart() { // LLAMADA EN LA FUNCIÓN DE ARRIBA "finalizarCompra", ES USADA COMO EVENTO AL APRETAR "FINALIZAR COMPRA", 
+function vaciarCarrito() { // LLAMADA EN LA FUNCIÓN DE ARRIBA "finalizarCompra", ES USADA COMO EVENTO AL APRETAR "FINALIZAR COMPRA", 
     // EL CARRITO SE VACÍA Y LOS CONTADORES DE CANTIDAD Y MONTO SE SETEAN EN 0 DE NUEVO.
 
     cart = []
@@ -226,7 +228,7 @@ function emptyCart() { // LLAMADA EN LA FUNCIÓN DE ARRIBA "finalizarCompra", ES
     }
 }
 
-function removeItem(productIndex) { // REMUEVO EL PRODUCTO SELECCIONADO, Y CON EL LA CANTIDAD DE PRODUCTOS SELECCIONADOS DEL MISMO.
+function eliminarProducto(productIndex) { // REMUEVO EL PRODUCTO SELECCIONADO, Y CON EL LA CANTIDAD DE PRODUCTOS SELECCIONADOS DEL MISMO.
     cantidadDeProductos = cantidadDeProductos - cart[productIndex].cantidad;
     montoHastaAhora = montoHastaAhora - (cart[productIndex].precio * cart[productIndex].cantidad)
     $("#montoTotalAPagar").html(`Monto a pagar: $${montoHastaAhora}`); // SE RESTA EL MONTO DE DICHO PRODUCTO * CANTIDAD DEL MISMO.
@@ -240,19 +242,37 @@ function removeItem(productIndex) { // REMUEVO EL PRODUCTO SELECCIONADO, Y CON E
 }
 
 function verResumenDeCompra() { // Función que se llama en linea 191, dentro del evento submit del formulario de compra en linea 161. 
-    $("#carrito").after(`<div class="resume-container p-2">
+    $("#carrito").after(`<div class="resume-container" id="resume-container">
                          </div>
                         `)
     $(".resume-container").append("<h2 class='resume__title fs-2'>Resumen de compra</h2>")
     cart.forEach(product => {
         const itemContainer = document.createElement("div")
         itemContainer.classList.add("resume__itemContainer")
-        itemContainer.innerHTML =`<p class="resume__itemDetail resume__itemName w-25">${product.nombre}</p>
-                                  <p class="resume__itemDetail resume__itemQuantity w-25">Cantidad: ${product.cantidad}</p>
-                                  <p class="resume__itemDetail resume__itemTotalPrice w-25">Subtotal: $${product.precio * product.cantidad}</p>
+        itemContainer.innerHTML =`<p class="resume__itemDetail resume__itemName">${product.nombre}</p>
+                                  <p class="resume__itemDetail resume__itemQuantity">Cantidad: ${product.cantidad}</p>
+                                  <p class="resume__itemDetail resume__itemTotalPrice">Subtotal: $${product.precio * product.cantidad}</p>
                                  `
         $(".resume-container").append(itemContainer);
     })
     $(".resume-container").append(`<h3 class="resume__total fs-2">Total: $${montoHastaAhora}</h3>
-                                   <button class="btn btn-danger btn-finalizarResumen" onclick='endPurchaseView()'>Finalizar revisión</button>`)
+                                   <button class="btn btn-danger btn-finalizarResumen" onclick='finalizarRevision()'>Finalizar revisión</button>`)
 }
+
+// const traerProductos = async () => {
+//     try {
+//         const res = await fetch('./js/products.json')
+//         console.log(res)
+//         const data = await res.json()
+//         traerData(data)
+//     } catch (error) {
+//         console.log(error)
+//     }
+// }
+
+// const traerData = data => {
+//     data.forEach(producto => console.log(producto));
+//     // console.log(data)
+// }
+
+// traerProductos()

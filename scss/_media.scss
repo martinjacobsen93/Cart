@@ -1,0 +1,267 @@
+@media only screen and (min-width: 320px) {
+    .cripto {
+        width: 100%;
+
+        .bitcoin-title {
+            width: 90%;
+        }
+
+        .bitcoin-price {
+            width: 90%;
+        }
+    }
+
+    .productos {
+        .card {
+            width: 92%;
+        }
+    }
+
+    .carrito {
+        width: 95%;
+
+        .formulario-container {
+            width: 100%;
+
+            .form-title {
+                width: 100%;
+            }
+            .formularioCompra {
+                width: 90%;
+
+                .input {
+                    width: 90%;
+                }
+
+                .input-submit {
+                    width: 75%;
+                }
+            }
+        }
+
+        .cart-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 80%;
+
+            .item-text {
+                text-align: center;
+                width: 100%;
+                margin: 5px;
+            }
+        }
+    }
+    #resume-container {
+        width: 95%;
+        gap: 10px;
+        .resume__itemContainer {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 90%;
+
+            .resume__itemDetail {
+                width: 100%;
+            }
+        }
+        .btn-finalizarResumen {
+            margin-bottom: 15px;
+        }
+    }
+
+    .footer {
+        .footer__social-media {
+            width: 100%;
+        }
+    }
+}
+
+@media only screen and (min-width: 480px) {
+    .cripto {
+        width: 100%;
+
+        .bitcoin-title {
+            width: 90%;
+        }
+
+        .bitcoin-price {
+            width: 90%;
+        }
+    }
+
+    .carrito {
+        width: 90%;
+
+        .formulario-container {
+            width: 95%;
+        }
+    }
+    #resume-container {
+        width: 85%;
+    }
+
+    .productos {
+        width: 100%;
+
+        .card {
+            width: 80%;
+        }
+    }
+    .footer {
+        .footer__social-media {
+            width: 90%;
+        }
+    }
+}
+
+@media only screen and (min-width: 720px) {
+    .cripto {
+        width: 100%;
+
+        .bitcoin-title {
+            width: 90%;
+        }
+
+        .bitcoin-price {
+            width: 90%;
+        }
+    }
+    #resume-container {
+        width: 80%;
+    }
+
+    .productos {
+        .card {
+            width: 30%;
+        }
+    }
+
+    .carrito {
+        .cart-item {
+            display: flex;
+            flex-direction: row;
+
+            .item-text {
+                text-align: center;
+                width: 100%;
+                margin: 5px;
+            }
+        }
+
+        .finalizarCompra,
+        .cancelarCompra {
+            width: 35%;
+        }
+
+        .formulario-container {
+            .form-title {
+                width: 100%;
+            }
+
+            .formularioCompra {
+                .input {
+                    width: 90%;
+                }
+
+                .input-submit {
+                    width: 60%;
+                }
+            }
+        }
+    }
+    #resume-container {
+        width: 90%;
+        .resume__itemContainer {
+            display: flex;
+            flex-direction: row;
+        }
+    }
+}
+
+@media only screen and (min-width: 1100px) {
+    .productos {
+        .card {
+            width: 20%;
+        }
+    }
+
+    .carrito {
+        width: 85%;
+
+        .cart-item {
+            flex-direction: row;
+            width: 85%;
+
+            .item-text {
+                text-align: center;
+                width: 100%;
+                margin: 5px;
+            }
+        }
+
+        .formulario-container {
+            .form-title {
+                width: 100%;
+            }
+
+            .formularioCompra {
+                width: 62%;
+
+                .input {
+                    width: 80%;
+                }
+
+                .input-submit {
+                    width: 50%;
+                }
+            }
+        }
+    }
+    #resume-container {
+        width: 60%;
+    }
+
+    .footer {
+        .footer__social-media {
+            width: 70%;
+        }
+    }
+}
+
+@media only screen and (min-width: 1400px) {
+    #resume-container {
+        width: 50%;
+    }
+}
+
+
+
+@media only screen and (min-width: 1600px) {
+    .cripto {
+        width: 100%;
+
+        .bitcoin-title {
+            width: 80%;
+        }
+
+        .bitcoin-price {
+            width: 60%;
+        }
+    }
+
+    .carrito {
+        width: 75%;
+
+        .finalizarCompra,
+        .cancelarCompra {
+            width: 28%;
+        }
+    }
+
+    .footer {
+        .footer__social-media {
+            width: 50%;
+        }
+    }
+}
