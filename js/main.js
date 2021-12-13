@@ -59,34 +59,14 @@ const videoGames = [{ // array de objetos que serán parte de cards.
     }
 ];
 
-let cantidadDeProductos = 0;
-let montoHastaAhora = 0;
-let cart = [];
-
-$(document).ready(() => {
-    showAvailableProducts()
-    $(".compras").append(`<h2 id="cantidadProductos" class="text-light m-3 text-center">Productos en carrito: ${cantidadDeProductos}</h2>`);
-    $(".compras").append(`<h2 id="montoTotalAPagar" class="text-light m-3 text-center">Monto a pagar: $${montoHastaAhora}</h2>`);
-
-});
-
-// AJAX
-
+let cantidadDeProductos = 0; // valor que se va a ir incrementando o decrementando segun productos agregados
+let montoHastaAhora = 0; // monto total por la cantidad de productos en carrito
+let cart = []; // array que representa al carrito de compras
 const URL = 'https://api.coinbase.com/v2/prices/BTC-USD/buy'; // REQUEST DE PRECIO DE BTC A USD DE API COINBASE.
 
-$.get(URL, (response, status) => { // TRAIGO DESDE LA API DE COINBASE EL PRECIO DE BITCOIN
-    if (status === "success") {
-        const {
-            data: {
-                amount: precio
-            }
-        } = response;
-        $(".cripto").append(`<h3 class="text-light text-center bitcoin-title">Aceptamos Bitcoin como método de pago a través del mercado P2P</h3>
-                              <p class="fs-4 text-center bitcoin-price">Precio actual de Bitcoin: <span class="btc-price">USD ${precio}</span></p>`);
-    }
-});
-
 function showAvailableProducts() {
+    /* Se trae la información de cada uno de los objetos del array videoGames, y a partir del mismo se crean cards por cada objeto, y luego se appendean en el contenedor ".productos.
+       Esta funcion se llama en la linea 84 dentro del document.ready, y en las lineas 211 y 221 */
     videoGames.forEach((videoGame, index) => {
         const cardContainer = document.createElement("div");
         cardContainer.classList.add("card")
@@ -101,7 +81,30 @@ function showAvailableProducts() {
     });
 }
 
+$(document).ready(() => {
+    showAvailableProducts()
+    $(".compras").append(`<h2 id="cantidadProductos" class="text-light m-3 text-center">Productos en carrito: ${cantidadDeProductos}</h2>`);
+    $(".compras").append(`<h2 id="montoTotalAPagar" class="text-light m-3 text-center">Monto a pagar: $${montoHastaAhora}</h2>`);
+
+});
+
+// AJAX
+
+$.get(URL, (response, status) => {
+    // TRAIGO DESDE LA API DE COINBASE EL PRECIO DE BITCOIN
+    if (status === "success") {
+        const {
+            data: {
+                amount: precio
+            }
+        } = response;
+        $(".cripto").append(`<h3 class="text-light text-center bitcoin-title">Aceptamos Bitcoin como método de pago a través del mercado P2P</h3>
+                              <p class="fs-4 text-center bitcoin-price">Precio actual de Bitcoin: <span class="btc-price">USD ${precio}</span></p>`);
+    }
+});
+
 function buyItem(productIndex) {
+    // funcion llamada en linea 75, agregada como evento del boton "Sumar al carrito".
     cantidadDeProductos++
     $("#cantidadProductos").html(`Productos en carrito: ${cantidadDeProductos}`);
     montoHastaAhora = montoHastaAhora + videoGames[productIndex].precio;
@@ -109,7 +112,8 @@ function buyItem(productIndex) {
     addItemToCart(productIndex);
 }
 
-function addItemToCart(productIndex) { // Este evento es llamado al dar click en "sumar al carrito", y pushea al array cart el objeto dado, y luego lo muestra en pantalla con la función "showItems"
+function addItemToCart(productIndex) {
+    // Funcion llamada dentro de evento buyItem, en linea 109. Pushea al array "cart" el objeto con el indice dado, y luego lo muestra en pantalla con el evento "showItems".
     const indexFound = cart.findIndex(product => product.id == videoGames[productIndex].id);
     if (indexFound === -1) {
         const productToAdd = videoGames[productIndex];
@@ -122,10 +126,8 @@ function addItemToCart(productIndex) { // Este evento es llamado al dar click en
     }
 }
 
-// const carritoContainer = document.getElementById("carrito")
-
-function showItems() { // evento que al dar click en el boton "sumar a carrito", crea un nuevo elemento de tipo contenedor con los detalles del producto seleccionado y lo muestra en pantalla
-
+function showItems() {
+    // evento que al dar click en el boton "sumar a carrito", crea un nuevo elemento de tipo contenedor con los detalles del producto seleccionado y lo muestra en pantalla
     $("#carrito").addClass("carrito")
     $(".carrito").html("")
     totalPriceToPay = 0;
@@ -148,13 +150,17 @@ function showItems() { // evento que al dar click en el boton "sumar a carrito",
     }
 }
 
-function cancelarCompra() { // se llama en la linea 128.
+function cancelarCompra() {
+    /* Se vacía array cart, y la spa vuelve a su estado inicial, es decir los productos vuelven a mostrarse y los productos que antes estaban en el carrito ya no están.
+       Esta función se llama en la linea 147, en el evento click del boton cancelar compra.*/
     vaciarCarrito();
 }
 
 function finalizarCompra() {
+    /* Se vacían contenedores productos y carrito para proceder a finalizar la compra y se crea un formulario para completar con los datos del usuario y asi poder continuar con el proceso de compra.
+    Función llamada en el método click de la linea 146.*/
     $(".finalizarCompra").hide();
-    $("#carrito").html(""); // VACÍO EL INNERHTML DEL CARRITO, CREO UN CONTAINER Y DENTRO UN FORMULARIO CON LOS CORRESPONDIENTES INPUT.
+    $("#carrito").html(""); // Vacío el InnerHTML del contenedor carrito, CREO UN CONTAINER Y DENTRO UN FORMULARIO CON LOS CORRESPONDIENTES INPUT.
     $("#productos").html("");
     $("#carrito").append(`<div class="formulario-container">
                                 <h2 class="text-light text-center p-2 form-title">Datos para el envío de su pedido</h2>
@@ -176,11 +182,12 @@ function finalizarCompra() {
     $("#formularioCompra").on("submit", function (e) {
         e.preventDefault();
         $(".formulario-container").fadeOut(300, () => {
-            // $(".footer").hide()
-            $("#carrito").append(`<h2 class="fs-2 procesando-compra">Procesando tu compra...</h2>`)
+            $("#carrito").append(`<h2 class="fs-2 procesando-compra">Procesando tu compra...</h2>
+                                  <img src="./img/loading.svg" alt="loading-img" class="loading-img">`)
                 .delay(2000)
             $("#carrito").fadeOut(1000, () => {
                 $(".procesando-compra").remove()
+                $(".loading-img").remove()
                 $("#montoTotalAPagar").hide();
                 $("#cantidadProductos").hide();
                 $(".formulario-container").hide();
@@ -188,7 +195,6 @@ function finalizarCompra() {
                 $("#carrito").append(`<h2 class="text-light text-center">Muchas gracias por tu compra ${$("#nombreInput").val()} ${$("#apellidoInput").val()}</h2>
                                       <p class="text-light fs-3 text-center">Tu pedido se ha realizado con éxito y será despachado con destino: <span class="direccionEnvio">${$("#direccionInput").val()}</span> dentro de las próximas 72hs hábiles</p>
                                     `);
-                // $(".footer").show()
                 $(".formulario-container").remove();
                 verResumenDeCompra()
             })
@@ -197,6 +203,8 @@ function finalizarCompra() {
 }
 
 function volverAtras() {
+    /* Al querer volver atrás, se vacía el contenedor "#carrito" y se vuelven a mostrar los productos disponibles en pantalla, además de los items en el carrito.
+    Función utilizada en el evento 'click' del boton de linea 173.*/
     $(".formulario-container").fadeOut(100, () => {
         $("#carrito").html("");
         showAvailableProducts();
@@ -205,6 +213,8 @@ function volverAtras() {
 }
 
 function finalizarRevision() {
+    /* Una vez luego de finalizar la revisión de la compra, los productos se vuelven a mostrar en pantalla, se vacía el carrito y se remueven el formulario y el resumen.
+       Evento utilizado en el boton de la linea 262.*/
     $("#montoTotalAPagar").show();
     $("#cantidadProductos").show();
     showAvailableProducts();
@@ -213,9 +223,10 @@ function finalizarRevision() {
     $(".resume-container").remove();
 }
 
-function vaciarCarrito() { // LLAMADA EN LA FUNCIÓN DE ARRIBA "finalizarCompra", ES USADA COMO EVENTO AL APRETAR "FINALIZAR COMPRA", 
-    // EL CARRITO SE VACÍA Y LOS CONTADORES DE CANTIDAD Y MONTO SE SETEAN EN 0 DE NUEVO.
-
+function vaciarCarrito() {
+    /* Función utilizada en el evento de la linea 152 "cancelarCompra()", y en la función finalizarRevisión() de la linea 208. 
+       El carrito se vacía y los contadores de cantidad y monto se setean en 0 de nuevo, asi como el atributo "cantidad" de cada producto previamente seleccionado.
+    */
     cart = []
     montoHastaAhora = 0
     cantidadDeProductos = 0
@@ -228,7 +239,8 @@ function vaciarCarrito() { // LLAMADA EN LA FUNCIÓN DE ARRIBA "finalizarCompra"
     }
 }
 
-function eliminarProducto(productIndex) { // REMUEVO EL PRODUCTO SELECCIONADO, Y CON EL LA CANTIDAD DE PRODUCTOS SELECCIONADOS DEL MISMO.
+function eliminarProducto(productIndex) {
+    /* Se remueve el producto con el indice dado del array "cart", y y la propiedad "cantidad" del mismo vuelve a 0.*/ 
     cantidadDeProductos = cantidadDeProductos - cart[productIndex].cantidad;
     montoHastaAhora = montoHastaAhora - (cart[productIndex].precio * cart[productIndex].cantidad)
     $("#montoTotalAPagar").html(`Monto a pagar: $${montoHastaAhora}`); // SE RESTA EL MONTO DE DICHO PRODUCTO * CANTIDAD DEL MISMO.
@@ -241,7 +253,9 @@ function eliminarProducto(productIndex) { // REMUEVO EL PRODUCTO SELECCIONADO, Y
     }
 }
 
-function verResumenDeCompra() { // Función que se llama en linea 191, dentro del evento submit del formulario de compra en linea 161. 
+function verResumenDeCompra() { 
+    /* Creo un nuevo contenedor donde se va a guardar un resumen de compra, mostrando los detalles de compra y de cada producto comprado.
+       Evento llamado en la linea 191, dentro del evento submit del formulario de compra en linea 161.*/
     $("#carrito").after(`<div class="resume-container" id="resume-container">
                          </div>
                         `)
@@ -258,21 +272,3 @@ function verResumenDeCompra() { // Función que se llama en linea 191, dentro de
     $(".resume-container").append(`<h3 class="resume__total fs-2">Total: $${montoHastaAhora}</h3>
                                    <button class="btn btn-danger btn-finalizarResumen" onclick='finalizarRevision()'>Finalizar revisión</button>`)
 }
-
-// const traerProductos = async () => {
-//     try {
-//         const res = await fetch('./js/products.json')
-//         console.log(res)
-//         const data = await res.json()
-//         traerData(data)
-//     } catch (error) {
-//         console.log(error)
-//     }
-// }
-
-// const traerData = data => {
-//     data.forEach(producto => console.log(producto));
-//     // console.log(data)
-// }
-
-// traerProductos()
